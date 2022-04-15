@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const version = "0.3.6"
+const version = "0.3.7"
 
 var rootCmd *cobra.Command
 
@@ -35,15 +35,15 @@ func init() {
 			columns, _ := cmd.Flags().GetString("columns")
 			format, _ := cmd.Flags().GetString("output-format")
 			allNamespace, _ := cmd.Flags().GetBool("all-namespaces")
-			kubeconfig, _ := cmd.Flags().GetString("kubeconfig")
+			kubeConfig, _ := cmd.Flags().GetString("kubeConfig")
 			context, _ := cmd.Flags().GetString("context")
-			kubeImage := kubeimage.NewKubeImage(regx, allNamespace, namespace, columns, kubeconfig, context)
+			kubeImage := kubeimage.NewKubeImage(regx, allNamespace, namespace, columns, kubeConfig, context)
 			kubeImage.Render(format)
 		},
 	}
 	rootCmd.Flags().BoolP("all-namespaces", "A", false, "if present, list images in all namespaces.")
 	rootCmd.Flags().StringP("namespace", "n", "", "if present, list images in the specified namespace only. Use current namespace as fallback.")
-	rootCmd.Flags().StringP("columns", "c", "1,2,3", "specify the columns to display, separated by comma. [0:Namespace, 1:PodName, 2:ContainerName, 3:ContainerImage]")
+	rootCmd.Flags().StringP("columns", "c", "1,2,3", "specify the columns to display, separated by comma. [0:Namespace, 1:PodName, 2:ContainerName, 3:ContainerImage, 4:ImagePullPolicy]")
 	rootCmd.Flags().StringP("kubeconfig", "k", "", "path to the kubeconfig file to use for CLI requests.")
 	rootCmd.Flags().StringP("output-format", "o", "table", "output format. [json|table]")
 	rootCmd.Flags().String("context", "", "The name of the kubeconfig context to use.")
